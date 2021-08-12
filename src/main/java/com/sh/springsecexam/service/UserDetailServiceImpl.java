@@ -1,6 +1,7 @@
 package com.sh.springsecexam.service;
 
-import com.sh.springsecexam.dto.User;
+import com.sh.springsecexam.entity.SecurityUser;
+import com.sh.springsecexam.entity.User;
 import com.sh.springsecexam.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -23,13 +24,8 @@ public class UserDetailServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        User user = userRepository.get(username);
+        User securityUser = userRepository.get(username);
 
-        List<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(user.getRole()));
-
-        user.setAuthorities(authorities);
-
-        return user;
+        return new SecurityUser(securityUser);
     }
 }

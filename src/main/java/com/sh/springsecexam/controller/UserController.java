@@ -14,9 +14,4 @@ public class UserController {
 
         return "user/loginpage";
     }
-
-    @PostMapping("/login/auth")
-    public void loginAuth(String userId) {
-
-    }
 }

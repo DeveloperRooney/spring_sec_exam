@@ -1,40 +1,29 @@
-package com.sh.springsecexam.dto;
+package com.sh.springsecexam.entity;
 
 import lombok.Getter;
-import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 @Getter
-@Setter
-public class User implements UserDetails {
+public class SecurityUser implements UserDetails {
 
+    private User user;
 
-    private Collection<? extends GrantedAuthority> authorities;
-
-    private String userId;
-
-    private String password;
-
-    private String name;
-
-    private String role;
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return authorities;
+    public SecurityUser(User user) {
+        this.user = user;
     }
 
     @Override
     public String getPassword() {
-        return password;
+        return "{noop}" + user.getUserPass();
     }
 
     @Override
     public String getUsername() {
-        return userId;
+        return user.getUserId();
     }
 
     @Override
@@ -55,5 +44,12 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+
+
+        return null;
     }
 }
