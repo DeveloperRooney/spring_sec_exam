@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/main.css">
+    <title>로그인 페이지</title>
+</head>
+
+<body>
+    <div class="login" onsubmit="return false">
+        <h1>로그인</h1>
+        <form name="loginform" action="/user/auth" method="post">
+            <input type="text" name="userId" autocomplete="off">
+            <input type="password" name="userPass">
+            <a href="javascript:login()">로그인</a>
+        </form>
+    </div>
+</body>
+
+<script>
+    function login() {
+        if(loginform.userId.value == "") {
+            alert("아이디를 입력해 주세요.")
+            loginform.userId.focus();
+            return;
+        }else if(loginform.userPass.value == "") {
+            alert("비밀번호를 입력해 주세요.")
+            loginform.userPass.focus();
+            return;
+        }
+
+        loginform.submit();
+    }
+</script>
+</html>
