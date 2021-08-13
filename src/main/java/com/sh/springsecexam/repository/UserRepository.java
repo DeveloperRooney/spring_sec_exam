@@ -1,6 +1,5 @@
 package com.sh.springsecexam.repository;
 
-import com.sh.springsecexam.entity.User;
 import org.springframework.stereotype.Component;
 
 @Component
