@@ -13,4 +13,10 @@ public class UserController {
 
         return "user/loginpage";
     }
+
+
+    public String logout() {
+
+        return "redirect:/";
+    }
 }

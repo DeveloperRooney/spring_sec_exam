@@ -21,14 +21,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/css/**");
+        web.ignoring().antMatchers("/css/**", "/js/**");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http.authorizeRequests()
-                .antMatchers("/").permitAll()
+        http
+                .authorizeRequests()
+                .antMatchers("/")
+                .permitAll()
                 .anyRequest().authenticated()
 
                 .and()
@@ -36,8 +38,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/user/login")
                 .permitAll()
-                .usernameParameter("userId")
-                .passwordParameter("userPass")
+                .usernameParameter("userId") //username
+                .passwordParameter("userPass") //password
                 .loginProcessingUrl("/user/auth")
                 .defaultSuccessUrl("/")
 
@@ -54,6 +56,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userService).passwordEncoder(new BCryptPasswordEncoder());
     }
-
-
 }
