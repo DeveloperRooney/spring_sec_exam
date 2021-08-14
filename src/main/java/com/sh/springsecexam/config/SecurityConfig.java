@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @EnableWebSecurity
 @Configuration
@@ -29,25 +30,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http
                 .authorizeRequests()
-                .antMatchers("/")
-                .permitAll()
-                .anyRequest().authenticated()
+                    .antMatchers("/")
+                    .permitAll()
+                    .anyRequest().authenticated()
 
                 .and()
 
                 .formLogin()
-                .loginPage("/user/login")
-                .permitAll()
-                .usernameParameter("userId") //username
-                .passwordParameter("userPass") //password
-                .loginProcessingUrl("/user/auth")
-                .defaultSuccessUrl("/")
+                    .loginPage("/user/login")
+                    .permitAll()
+                    .usernameParameter("userId") //username
+                    .passwordParameter("userPass") //password
+                    .loginProcessingUrl("/user/auth")
+                    .defaultSuccessUrl("/")
 
                 .and()
 
                 .logout()
-                .logoutSuccessUrl("/")
-                .invalidateHttpSession(true);
+                    .logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
+                    .logoutSuccessUrl("/")
+                    .invalidateHttpSession(true);
 
     }
 
